@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
 public class PlayerMovement : MonoBehaviour
 {
     public Rigidbody rb;
@@ -11,6 +13,10 @@ public class PlayerMovement : MonoBehaviour
     public float forwardForce = 2000f;
     public float sidewaysForce = 500f;
     public float jumpForce = 1000f;
+    public float maxSpeed = 150f;
+
+    private bool initiateRotating = false;
+    private bool isRotating = false;
 
     // Start is called before the first frame update
     void Start()
@@ -19,9 +25,15 @@ public class PlayerMovement : MonoBehaviour
         //rb.AddForce(0, 200, 500);
     }
 
-    void Update() {
+    void Update() 
+    {
         if(Input.GetKey("f") && rb.position.y < 2)
             rb.AddForce(0, jumpForce, 0, ForceMode.VelocityChange);
+
+        initiateRotating = Input.GetKeyDown("right") || Input.GetKeyDown("left");
+        if (!initiateRotating)
+            isRotating = false;
+
     }
 
     // FixedUpdate is good for physics apparently
@@ -41,13 +53,32 @@ public class PlayerMovement : MonoBehaviour
         if (rb.position.y < -3) 
             FindObjectOfType<GameManager>().EndGame();
 
-        if(Input.GetKey("d") || Input.GetKey("right"))
-            rb.AddForce(sidewaysForce * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
-        if(Input.GetKey("a") || Input.GetKey("left"))
-            rb.AddForce(-sidewaysForce * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
+        // If there is a constant speed forward, this may cause weird behavior, because that speed is included in the vel vector
+        // Maybe get magnitude without forward speed here?
+        if (rb.velocity.magnitude < maxSpeed)
+        {
+            if (Input.GetKey("d"))
+                rb.AddForce(sidewaysForce * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
+            if (Input.GetKey("a") || Input.GetKey("left"))
+                rb.AddForce(-sidewaysForce * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
+            if (Input.GetKey("s") || Input.GetKey("down"))
+                rb.AddForce(0, -sidewaysForce * Time.deltaTime, 0, ForceMode.VelocityChange);
+            if (Input.GetKey("w") || Input.GetKey("up"))
+                rb.AddForce(0, sidewaysForce * Time.deltaTime, 0, ForceMode.VelocityChange);
+        }
+
+        // Even if the player holds down a rotate button, only do an initial rotation
+        if (initiateRotating && !isRotating)
+        {
+            transform.rotation *= Quaternion.Euler(0, 45f, 0);
+            rb.rotation *= Quaternion.Euler(0, 45f, 0);
+            
+            isRotating = true;
+        }
     }
 
-    public void resetPosition() {
+    public void resetPosition() 
+    {
         rb.position = initPos;
         rb.velocity = Vector3.zero;
     }

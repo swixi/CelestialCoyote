@@ -7,6 +7,10 @@ public class GameManager : MonoBehaviour
     public PlayerMovement player;
     public GameObject completeLevelUI;
     public Score score;
+    public float boundsTop;
+    public float boundsBottom;
+    public float boundsLeft;
+    public float boundsRight; 
 
     void Start() {
         //PlayerPrefs.DeleteAll();

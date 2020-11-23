@@ -7,7 +7,13 @@ public class PlayerCollision : MonoBehaviour {
     
     void OnCollisionEnter(Collision collisionInfo) {
         if(collisionInfo.collider.tag == "obstacle") {
-            FindObjectOfType<GameManager>().EndGame();
+            Collider collider = collisionInfo.collider;
+            
+            AudioSource audioSource = collider.gameObject.AddComponent<AudioSource>();
+            audioSource.clip = Resources.Load("Sounds/C.wav") as AudioClip;
+            audioSource.Play();
+
+            //FindObjectOfType<GameManager>().EndGame();
         }
     }
     
