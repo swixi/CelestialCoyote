@@ -28,9 +28,9 @@ public class CylinderCollision : MonoBehaviour
 
             if(choice == 1)
                 this.GetComponent<AudioSource>().clip = hitSound1;
-            if (choice == 1)
+            else if (choice == 2)
                 this.GetComponent<AudioSource>().clip = hitSound2;
-            if (choice == 1)
+            else if (choice == 3)
                 this.GetComponent<AudioSource>().clip = hitSound3;
             else
                 this.GetComponent<AudioSource>().clip = hitSound4;
