@@ -66183,7 +66183,7 @@ PrefabInstance:
     - target: {fileID: 5357673265496877346, guid: 23b2ad64d3ee4c44cbbb2a0dd17a85a8,
         type: 3}
       propertyPath: m_Mass
-      value: 1.47
+      value: 1.96
       objectReference: {fileID: 0}
     - target: {fileID: 5357673265496877346, guid: 23b2ad64d3ee4c44cbbb2a0dd17a85a8,
         type: 3}
@@ -66198,7 +66198,7 @@ PrefabInstance:
     - target: {fileID: 5357673265496877347, guid: 23b2ad64d3ee4c44cbbb2a0dd17a85a8,
         type: 3}
       propertyPath: sidewaysForce
-      value: 1000
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5357673265496877347, guid: 23b2ad64d3ee4c44cbbb2a0dd17a85a8,
         type: 3}
@@ -66208,7 +66208,7 @@ PrefabInstance:
     - target: {fileID: 5357673265496877349, guid: 23b2ad64d3ee4c44cbbb2a0dd17a85a8,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 12.6
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5357673265496877349, guid: 23b2ad64d3ee4c44cbbb2a0dd17a85a8,
         type: 3}

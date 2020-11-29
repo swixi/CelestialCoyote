@@ -23,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
     private bool initiateRight = false;
     private bool initiateLeft = false;
     private bool isRotating = false;
+    private bool isPressingWASD = false;
 
     private float timer = 0.0f;
     private float waitTime = 1.0f;
@@ -54,6 +55,12 @@ public class PlayerMovement : MonoBehaviour
         initiateRotating = initiateLeft || initiateRight;
         if (!initiateRotating)
             isRotating = false;
+
+        if (Input.GetKey("w") || Input.GetKey("a") || Input.GetKey("s") || Input.GetKey("d"))
+            isPressingWASD = true;
+        else
+            isPressingWASD = false;
+
     }
 
     // FixedUpdate is good for physics apparently
@@ -89,23 +96,25 @@ public class PlayerMovement : MonoBehaviour
         // This appears to add force in the rotated direction -- no need to rotate the force by the quaternion
         rb.AddRelativeForce(velocityVector);
 
+
         if (rb.position.y < -3) 
             FindObjectOfType<GameManager>().EndGame();
 
         // If there is a constant speed forward, this may cause weird behavior, because that speed is included in the vel vector
         // Maybe get magnitude without forward speed here?
-        if (rb.velocity.magnitude < maxSpeed)
+        if (rb.velocity.magnitude < maxSpeed && isPressingWASD)
         {
             if (Input.GetKey("d"))
-                movementVector = new Vector3(sidewaysForce * fixedDeltaTime, 0, 0);
+                rb.AddRelativeForce(new Vector3(sidewaysForce * fixedDeltaTime, 0, 0), ForceMode.Impulse);
             if (Input.GetKey("a"))
-                movementVector = new Vector3(-sidewaysForce * fixedDeltaTime, 0, 0);
+                rb.AddRelativeForce(new Vector3(-sidewaysForce * fixedDeltaTime, 0, 0), ForceMode.Impulse);
             if (Input.GetKey("s"))
-                movementVector = new Vector3(0, -sidewaysForce * fixedDeltaTime, 0);
+                rb.AddRelativeForce(new Vector3(0, -sidewaysForce * fixedDeltaTime, 0), ForceMode.Impulse);
             if (Input.GetKey("w"))
-                movementVector = new Vector3(0, sidewaysForce * fixedDeltaTime, 0);
+                rb.AddRelativeForce(new Vector3(0, sidewaysForce * fixedDeltaTime, 0), ForceMode.Impulse);
 
-            rb.AddRelativeForce(movementVector);
+            //rb.AddRelativeForce(movementVector, ForceMode.Impulse);
+            //Debug.Log("adding force + " + Time.time);
         }
 
         // Even if the player holds down a rotate button, only do an initial rotation
