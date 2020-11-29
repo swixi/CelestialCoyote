@@ -33666,6 +33666,54 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3812fa23bf35749478a094f7e214d1a3, type: 3}
+--- !u!1 &1141633332
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1141633334}
+  - component: {fileID: 1141633333}
+  m_Layer: 0
+  m_Name: BlockSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1141633333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1141633332}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24f38c5a0313b1049ac0d85ff1b88343, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  widthX: 10
+  widthZ: 10
+  minWidthY: 5
+  maxWidthY: 40
+  numBlocks: 5
+--- !u!4 &1141633334
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1141633332}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 11.4, y: 3.93, z: 258.8}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1142649320 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5566237084093863656, guid: 3812fa23bf35749478a094f7e214d1a3,
@@ -66145,12 +66193,12 @@ PrefabInstance:
     - target: {fileID: 5357673265496877347, guid: 23b2ad64d3ee4c44cbbb2a0dd17a85a8,
         type: 3}
       propertyPath: forwardForce
-      value: 1000
+      value: 2000
       objectReference: {fileID: 0}
     - target: {fileID: 5357673265496877347, guid: 23b2ad64d3ee4c44cbbb2a0dd17a85a8,
         type: 3}
       propertyPath: sidewaysForce
-      value: 100
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 5357673265496877347, guid: 23b2ad64d3ee4c44cbbb2a0dd17a85a8,
         type: 3}
@@ -66170,7 +66218,7 @@ PrefabInstance:
     - target: {fileID: 5357673265496877349, guid: 23b2ad64d3ee4c44cbbb2a0dd17a85a8,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 250
+      value: 217.07
       objectReference: {fileID: 0}
     - target: {fileID: 5357673265496877349, guid: 23b2ad64d3ee4c44cbbb2a0dd17a85a8,
         type: 3}

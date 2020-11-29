@@ -80,12 +80,14 @@ public class PlayerMovement : MonoBehaviour
         */
 
 
-        // Add force to velocity vector, rotated accordingly
+        // Add forward force to velocity vector, rotated accordingly
         velocityVector = new Vector3(0, 0, forwardForce * fixedDeltaTime);
-        rotationQuaternion = Quaternion.Euler(0, eulerRotationAngle, 0); //rotation about y-axis
-        velocityVector = rotationQuaternion * velocityVector;
-        rb.AddForce(velocityVector);
+        //rotationQuaternion = Quaternion.Euler(0, eulerRotationAngle, 0); //rotation about y-axis
+        //velocityVector = rotationQuaternion * velocityVector;
+        //rb.AddForce(velocityVector);
 
+        // This appears to add force in the rotated direction -- no need to rotate the force by the quaternion
+        rb.AddRelativeForce(velocityVector);
 
         if (rb.position.y < -3) 
             FindObjectOfType<GameManager>().EndGame();
@@ -95,15 +97,15 @@ public class PlayerMovement : MonoBehaviour
         if (rb.velocity.magnitude < maxSpeed)
         {
             if (Input.GetKey("d"))
-                movementVector = rotationQuaternion * (new Vector3(sidewaysForce * fixedDeltaTime, 0, 0));
+                movementVector = new Vector3(sidewaysForce * fixedDeltaTime, 0, 0);
             if (Input.GetKey("a"))
-                movementVector = rotationQuaternion * (new Vector3(-sidewaysForce * fixedDeltaTime, 0, 0));
+                movementVector = new Vector3(-sidewaysForce * fixedDeltaTime, 0, 0);
             if (Input.GetKey("s"))
-                movementVector = rotationQuaternion * (new Vector3(0, -sidewaysForce * fixedDeltaTime, 0));
+                movementVector = new Vector3(0, -sidewaysForce * fixedDeltaTime, 0);
             if (Input.GetKey("w"))
-                movementVector = rotationQuaternion * (new Vector3(0, sidewaysForce * fixedDeltaTime, 0));
+                movementVector = new Vector3(0, sidewaysForce * fixedDeltaTime, 0);
 
-            rb.AddForce(movementVector, ForceMode.Impulse);
+            rb.AddRelativeForce(movementVector);
         }
 
         // Even if the player holds down a rotate button, only do an initial rotation
