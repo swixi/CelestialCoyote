@@ -6,6 +6,7 @@ TagManager:
   tags:
   - obstacle
   - player
+  - track
   layers:
   - Default
   - TransparentFX

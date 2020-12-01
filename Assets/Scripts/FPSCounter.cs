@@ -15,6 +15,8 @@ public class FPSCounter : MonoBehaviour
         fpsText.text += "vel: " + (player.rb.velocity).ToString();
         fpsText.text += "\n";
         fpsText.text += "vel mag: " + (player.rb.velocity.magnitude).ToString("0.00");
+        fpsText.text += "\n";
+        fpsText.text += "on track: " + player.GetComponent<PlayerCollision>().isOnTrack;
 
 
     }

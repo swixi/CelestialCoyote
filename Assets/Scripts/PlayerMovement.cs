@@ -12,7 +12,8 @@ public class PlayerMovement : MonoBehaviour
     public float forwardForce = 2000f;
     public float sidewaysForce = 500f;
     public float jumpForce = 1000f;
-    public float maxSpeed = 150f;
+    public float trackForce = 100f;
+    public float maxSpeed = 150f; // Should there be a max speed?
 
     private float eulerRotationAngle = 0f;
     private Quaternion rotationQuaternion;
@@ -24,9 +25,6 @@ public class PlayerMovement : MonoBehaviour
     private bool initiateLeft = false;
     private bool isRotating = false;
     private bool isPressingWASD = false;
-
-    private float timer = 0.0f;
-    private float waitTime = 1.0f;
 
     private float fixedDeltaTime = 0f;
     
@@ -68,25 +66,6 @@ public class PlayerMovement : MonoBehaviour
     {
         fixedDeltaTime = Time.fixedDeltaTime;
 
-        /*
-        if (timer == 0)
-        {
-            rb.position = new Vector3(-100, 0, 0);
-            //Debug.Log("pos at time 0: " + rb.position);
-            rb.velocity = Vector3.one;
-            //Debug.Log("vel at time 0: " + rb.velocity);
-        }
-
-        timer += Time.deltaTime;
-
-        if (timer > waitTime)
-        {
-            Debug.Log("vel after " + timer + " sec: " + rb.velocity);
-            Debug.Log("pos after " + timer + " sec: " + rb.position);
-        }
-        */
-
-
         // Add forward force to velocity vector, rotated accordingly
         velocityVector = new Vector3(0, 0, forwardForce * fixedDeltaTime);
         //rotationQuaternion = Quaternion.Euler(0, eulerRotationAngle, 0); //rotation about y-axis
@@ -100,9 +79,9 @@ public class PlayerMovement : MonoBehaviour
         if (rb.position.y < -3) 
             FindObjectOfType<GameManager>().EndGame();
 
-        // If there is a constant speed forward, this may cause weird behavior, because that speed is included in the vel vector
-        // Maybe get magnitude without forward speed here?
-        if (rb.velocity.magnitude < maxSpeed && isPressingWASD)
+        // Note that pressing one of these keys will increase the velocity magnitude,
+        // but the Z-axis velocity ("forward") is still constant.
+        if (isPressingWASD)
         {
             if (Input.GetKey("d"))
                 rb.AddRelativeForce(new Vector3(sidewaysForce * fixedDeltaTime, 0, 0), ForceMode.Impulse);
@@ -114,7 +93,17 @@ public class PlayerMovement : MonoBehaviour
                 rb.AddRelativeForce(new Vector3(0, sidewaysForce * fixedDeltaTime, 0), ForceMode.Impulse);
 
             //rb.AddRelativeForce(movementVector, ForceMode.Impulse);
-            //Debug.Log("adding force + " + Time.time);
+        }
+        else
+        {
+            PlayerCollision playerCollision = GetComponent<PlayerCollision>();
+            if (playerCollision.isOnTrack)
+            {
+                Plane trackPlane = playerCollision.trackPlane;
+                Debug.Log(trackPlane.ClosestPointOnPlane(transform.position));
+                // Add a force toward the current track, whenever player is NOT holding WASD
+                rb.AddForce(trackPlane.ClosestPointOnPlane(rb.transform.position) - rb.transform.position);
+            }
         }
 
         // Even if the player holds down a rotate button, only do an initial rotation
