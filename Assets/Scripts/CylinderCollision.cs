@@ -23,6 +23,8 @@ public class CylinderCollision : MonoBehaviour
     {
         if (collisionInfo.collider.tag == "player")
         {
+
+
             //inclusive
             int choice = (int)Random.Range(1, 5);
 
@@ -35,7 +37,10 @@ public class CylinderCollision : MonoBehaviour
             else
                 this.GetComponent<AudioSource>().clip = hitSound4;
 
-            this.GetComponent<AudioSource>().Play();
+
+            //this.GetComponent<AudioSource>().Play();
+            
+            
             //AudioSource.PlayClipAtPoint(hitSound, transform.localPosition);
         }
     }

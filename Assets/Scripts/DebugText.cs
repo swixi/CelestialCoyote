@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class FPSCounter : MonoBehaviour
+public class DebugText : MonoBehaviour
 {
-
     public Text fpsText;
     public PlayerMovement player;
 
@@ -17,7 +16,5 @@ public class FPSCounter : MonoBehaviour
         fpsText.text += "vel mag: " + (player.rb.velocity.magnitude).ToString("0.00");
         fpsText.text += "\n";
         fpsText.text += "on track: " + player.GetComponent<PlayerCollision>().isOnTrack;
-
-
     }
 }

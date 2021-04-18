@@ -9,11 +9,11 @@ public class PlayerMovement : MonoBehaviour
     public Rigidbody rb;
     public Vector3 initPos;
 
-    public float forwardForce = 2000f;
-    public float sidewaysForce = 500f;
-    public float jumpForce = 1000f;
-    public float trackForce = 100f;
-    public float maxSpeed = 150f; // Should there be a max speed?
+    [Space]
+    [Header("Speed parameters")]
+    [SerializeField] private float sidewaysForce = 500f;
+    [SerializeField] private float jumpForce = 1000f;
+    [SerializeField] private float trackForce = 500f; //probably shouldn't be in this class
 
     private float eulerRotationAngle = 0f;
     private Quaternion rotationQuaternion;
@@ -28,14 +28,6 @@ public class PlayerMovement : MonoBehaviour
 
     private float fixedDeltaTime = 0f;
     
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        initPos = rb.position;
-        //rb.velocity = new Vector3(0, 0, 1);
-    }
-
     void Update() 
     {
         if(Input.GetKey("f") && rb.position.y < 2)
@@ -67,13 +59,13 @@ public class PlayerMovement : MonoBehaviour
         fixedDeltaTime = Time.fixedDeltaTime;
 
         // Add forward force to velocity vector, rotated accordingly
-        velocityVector = new Vector3(0, 0, forwardForce * fixedDeltaTime);
+        //velocityVector = new Vector3(0, 0, forwardForce * fixedDeltaTime);
         //rotationQuaternion = Quaternion.Euler(0, eulerRotationAngle, 0); //rotation about y-axis
         //velocityVector = rotationQuaternion * velocityVector;
         //rb.AddForce(velocityVector);
 
         // This appears to add force in the rotated direction -- no need to rotate the force by the quaternion
-        rb.AddRelativeForce(velocityVector);
+        //rb.AddRelativeForce(velocityVector);
 
 
         if (rb.position.y < -3) 
@@ -96,6 +88,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
+            /*
             PlayerCollision playerCollision = GetComponent<PlayerCollision>();
             if (playerCollision.isOnTrack)
             {
@@ -104,6 +97,7 @@ public class PlayerMovement : MonoBehaviour
                 // Add a force toward the current track, whenever player is NOT holding WASD
                 rb.AddForce(trackPlane.ClosestPointOnPlane(rb.transform.position) - rb.transform.position);
             }
+            */
         }
 
         // Even if the player holds down a rotate button, only do an initial rotation
@@ -137,10 +131,11 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    // Move this method to the dolly cart
     public void resetPosition() 
     {
-        rb.position = initPos;
-        rb.velocity = Vector3.zero;
+        //rb.position = initPos;
+        //rb.velocity = Vector3.zero;
     }
 
     private void resetRotationAndVelocity()

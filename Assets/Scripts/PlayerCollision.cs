@@ -7,6 +7,9 @@ public class PlayerCollision : MonoBehaviour {
     public bool isOnTrack = false;
     public Plane trackPlane { get; set; }
 
+    // Build a Plane (which is just a struct) from a Plane (Game Object with mesh renderer, etc)
+    // The struct Plane represents the mathematical (infinite) plane which is determined by a normal vector and a point on the plane
+    // This is useful to have because it has math methods like "closest point on plane" so we can avoid re-inventing the wheel
     private void BuildTrackPlane(GameObject track)
     {
         MeshFilter filter = track.GetComponent<MeshFilter>();
@@ -43,6 +46,8 @@ public class PlayerCollision : MonoBehaviour {
         if (other.tag == "track")
         {
             isOnTrack = true;
+
+            //TODO: check rotation of plane and player, and set the correct one to build
             BuildTrackPlane(other.gameObject);
         }
     }
@@ -63,6 +68,4 @@ public class PlayerCollision : MonoBehaviour {
             isOnTrack = false;
         }
     }
-
-
 }

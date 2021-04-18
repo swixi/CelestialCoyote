@@ -10,14 +10,19 @@ public class FollowPlayer : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-
-
         // RENAME this file.. what is its purpose? think of design
+
+
+        this.transform.position = playerRB.transform.position + cameraShift;
+        this.transform.rotation = playerRB.rotation;
+
 
 
         
         //Vector3 difference = playerRB.position - playerTransform.position;
         //Debug.Log(difference.ToString());
+
+
 
 
         //cameraShift = playerRB.velocity.normalized;

@@ -22,8 +22,9 @@ public class GameManager : MonoBehaviour
     }
 
     public void EndGame() {
-        player.sidewaysForce = 0f;
-        player.forwardForce = 10f;
+        //player.sidewaysForce = 0f;
+        //player.forwardForce = 10f;
+
         Invoke("Restart", restartDelay);
     }
 
